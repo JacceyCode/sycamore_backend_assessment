@@ -11,6 +11,8 @@
     "target": "es2020",
     "moduleResolution": "node",
     "types": [],
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
 
     // Other Outputs
     "sourceMap": true,
