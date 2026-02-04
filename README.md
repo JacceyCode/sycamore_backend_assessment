@@ -2,26 +2,6 @@
 
 A comprehensive Node.js/TypeScript/Sequelize/PostgresSQL backend application demonstrating idempotent wallet transfers with race condition prevention and precise interest accumulation calculations.
 
-## Table of Contents
-
-- [Overview](#overview)
-- [Features](#features)
-- [Tech Stack](#tech-stack)
-- [Project Structure](#project-structure)
-- [Setup Instructions](#setup-instructions)
-- [Environment Configuration](#environment-configuration)
-- [Database Setup](#database-setup)
-- [Running the Application](#running-the-application)
-- [API Endpoints](#api-endpoints)
-- [Testing](#testing)
-- [Architecture & Design Patterns](#architecture--design-patterns)
-- [Key Implementation Details](#key-implementation-details)
-- [Error Handling](#error-handling)
-- [Security Features](#security-features)
-- [Performance Considerations](#performance-considerations)
-- [Troubleshooting](#troubleshooting)
-- [Additional Resources](#additional-resources)
-
 ## Overview
 
 This project implements two core features:
