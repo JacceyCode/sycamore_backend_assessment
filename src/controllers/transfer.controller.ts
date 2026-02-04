@@ -14,7 +14,7 @@ export const walletTransfer = async (
   try {
     const { fromAccount, toAccount, amount, comment } =
       req.body as TransferRequest;
-    const idempotencyKey = req.headers["Idempotency-Key"] as string;
+    const idempotencyKey = req.headers["idempotency-key"] as string;
 
     // Check ledger for existing transaction with the same idempotency key
     const existingTransaction =
@@ -24,7 +24,9 @@ export const walletTransfer = async (
 
     if (existingTransaction) {
       // If transaction exists, return the existing transaction details
-      res.status(201).json({
+      const code =
+        existingTransaction.status === TransactionStatus.SUCCESSFUL ? 200 : 201;
+      res.status(code).json({
         status: existingTransaction.status,
         message: `Transfer ${existingTransaction.status.toLocaleLowerCase()}.`,
       });
@@ -50,6 +52,15 @@ export const walletTransfer = async (
       throw error;
     }
 
+    // Check for wallet currency compatibility (assuming same currency for simplicity)
+    if (debitWallet.currency !== creditWallet.currency) {
+      const error = new Error(
+        `Wallet Currency mismatch. Transfers can only be made between wallets of the same currency.`,
+      );
+      error.name = "BadRequest";
+      throw error;
+    }
+
     //create ledger(transfer) entry here
     newTransaction = await walletService.createTransactionEntry({
       debitWalletId: debitWallet.id,
@@ -69,7 +80,7 @@ export const walletTransfer = async (
 
     res.status(201).json({
       status: "success",
-      message: `Transfer of amount ${amount} from ${fromAccount} to ${toAccount} initiated successfully.`,
+      message: `Transfer of amount ${debitWallet.currency}${amount} from ${fromAccount} to ${toAccount} completed successfully.`,
     });
   } catch (error) {
     // Update ledger status to failed here

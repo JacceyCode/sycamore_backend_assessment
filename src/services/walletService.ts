@@ -87,8 +87,6 @@ export class WalletService {
       { where: { id: ledgerId }, returning: true, plain: true },
     );
 
-    console.log("Updated Ledger:", updatedLedger);
-
     return updatedLedger[1];
   }
 

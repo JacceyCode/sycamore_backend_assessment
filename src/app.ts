@@ -57,7 +57,11 @@ app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
   let errorMessage = err.message;
   let statusCode;
 
-  if (err.name === "ValidationError" || err.name === "InsufficientFundsError")
+  if (
+    err.name === "ValidationError" ||
+    err.name === "InsufficientFundsError" ||
+    err.name === "BadRequest"
+  )
     statusCode = 400;
   else if (err.name === "Unauthorized") statusCode = 401;
   else if (err.name === "Forbidden") statusCode = 403;

@@ -6,7 +6,7 @@ export function verifyIdempotencyKey(
   _res: Response,
   next: NextFunction,
 ) {
-  const idempotencyKey = req.headers["Idempotency-Key"];
+  const idempotencyKey = req.headers["idempotency-key"];
 
   // Validate presence and type of Idempotency-Key header
   if (!idempotencyKey) {
