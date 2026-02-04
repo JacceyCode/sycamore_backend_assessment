@@ -1,8 +1,11 @@
-import express, { NextFunction, Request, Response } from "express";
+import express, { Application, NextFunction, Request, Response } from "express";
 import cors from "cors";
 import rateLimit from "express-rate-limit";
 
-const app = express();
+// Routes
+import transferRoutes from "./routes/transfer.route";
+
+const app: Application = express();
 
 // Middleware
 // Rate-limiting middleware to limit repeated requests to public APIs and/or endpoints
@@ -36,6 +39,9 @@ app.get("/", (_req, res) => {
   res.status(200).send("Sycamore Backend Assessment API is running.");
 });
 
+// Transfer routes
+app.use("/transfer", transferRoutes);
+
 // Unknown routes Handler
 app.use((req: Request, _res: Response, next: NextFunction) => {
   const error = new Error(
@@ -51,7 +57,8 @@ app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
   let errorMessage = err.message;
   let statusCode;
 
-  if (err.name === "ValidationError") statusCode = 400;
+  if (err.name === "ValidationError" || err.name === "InsufficientFundsError")
+    statusCode = 400;
   else if (err.name === "Unauthorized") statusCode = 401;
   else if (err.name === "Forbidden") statusCode = 403;
   else if (err.name === "NotFound") statusCode = 404;

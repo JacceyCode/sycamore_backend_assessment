@@ -26,3 +26,17 @@ export interface LedgerCreationAttributes extends Omit<
   LedgerAttributes,
   "id" | "status"
 > {}
+
+export interface TransferRequest {
+  fromAccount: string;
+  toAccount: string;
+  amount: number;
+  comment?: string;
+}
+
+export interface ITransferTransaction {
+  debitWalletId: string;
+  creditWalletId: string;
+  amount: number;
+  transactionId: string;
+}
