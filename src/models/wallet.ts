@@ -17,7 +17,7 @@ module.exports = (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate(models: any) {
+    static associate(models: Record<string, any>) {
       // define association here
       Wallet.hasMany(models.Ledgers, {
         foreignKey: "debitWalletId",

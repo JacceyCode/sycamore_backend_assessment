@@ -1,5 +1,4 @@
 "use strict";
-
 const fs = require("fs");
 const path = require("path");
 const Sequelize = require("sequelize");
@@ -7,9 +6,9 @@ const process = require("process");
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || "development";
 const config = require(path.join(__dirname, "../config/config.js"))[env];
-const db: any = {};
+const db: Record<string, any> = {};
 
-let sequelize: any;
+let sequelize: InstanceType<typeof Sequelize>;
 if (config.use_env_variable) {
   sequelize = new Sequelize(process.env[config.use_env_variable], config);
 } else {
